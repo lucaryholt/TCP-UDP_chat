@@ -8,25 +8,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
-public class SocketHandler {
+public class ConnectionHandler {
 
     private Socket socket;
     private PrintWriter pw;
     private BufferedReader bufferedReader;
 
-    public boolean initiateConnection(int port){
+    public boolean initiateConnection(String ip, int port){
         try {
-            ServerSocket serverSocket = new ServerSocket(port);
-
-            socket = serverSocket.accept();
+            socket = new Socket(ip, port);
 
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             pw = new PrintWriter(socket.getOutputStream(), true);
+
+            startThread();
 
             return true;
         } catch (IOException e) {
@@ -35,27 +34,31 @@ public class SocketHandler {
         return false;
     }
 
-    public void closeConnection(){
-        try {
-            bufferedReader.close();
-
-            pw.close();
-
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    private void startThread(){
+        Receiver receiver = new Receiver(bufferedReader);
+        Thread thread = new Thread(receiver);
+        thread.start();
     }
 
-    public void sendMessage(String message){
+    public void sendMessage(String message, String name){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("message", message);
+        jsonObject.put("name", name);
 
         pw.println(jsonObject.toJSONString());
     }
 
-    public String receiveMessage(){
+}
+
+class Receiver implements Runnable {
+
+    private BufferedReader bufferedReader;
+
+    public Receiver(BufferedReader bufferedReader) {
+        this.bufferedReader = bufferedReader;
+    }
+
+    public void receiveMessage(){
         try {
             JSONParser parser = new JSONParser();
 
@@ -65,14 +68,21 @@ public class SocketHandler {
 
             JSONObject jsonObject = (JSONObject) parser.parse(recv);
 
-            return (String) jsonObject.get("message");
+            String name = (String) jsonObject.get("name");
+            String message = (String) jsonObject.get("message");
+
+            System.out.println(name + ": " + message);
         } catch (SocketException e){
             ChatHandler.state = 3;
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-
-        return null;
     }
 
+    @Override
+    public void run() {
+        while(true){
+            receiveMessage();
+        }
+    }
 }

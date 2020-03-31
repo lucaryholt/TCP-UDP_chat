@@ -4,17 +4,14 @@ import java.util.Scanner;
 
 public class ChatHandler {
 
-    //0 = no connection
-    //1 = ready to send message
-    //2 = ready to receive message
-    //3 = connection terminated
     public static int state = 0;
 
-    private SocketHandler socketHandler;
+    private ConnectionHandler connectionHandler;
     private Scanner input;
+    private String name;
 
     public ChatHandler() {
-        socketHandler = new SocketHandler();
+        connectionHandler = new ConnectionHandler();
         input = new Scanner(System.in);
     }
 
@@ -27,9 +24,7 @@ public class ChatHandler {
                             break;
                 case 1 :    sendMessage();
                             break;
-                case 2 :    receiveMessage();
-                            break;
-                case 3 :    System.out.println("Connection terminated...");
+                case 2 :    System.out.println("Connection terminated...");
                             System.exit(1);
                             break;
             }
@@ -39,6 +34,9 @@ public class ChatHandler {
     private void initiateConnection(){
         System.out.println("Ready to connect!");
 
+        System.out.println("Your name?");
+        name = input.nextLine();
+
         System.out.println("What IP?");
         String ip = input.nextLine();
 
@@ -46,29 +44,18 @@ public class ChatHandler {
         int port = input.nextInt();
         input.nextLine();
 
-        if(socketHandler.initiateConnection(ip, port)){
+        if(connectionHandler.initiateConnection(ip, port)){
             state = 1;
         }else {
             System.out.println("No server found.");
-            state = 3;
+            state = 2;
         }
     }
 
     private void sendMessage(){
-        System.out.println("Message:");
         String message = input.nextLine();
 
-        socketHandler.sendMessage(message);
-
-        state = 2;
-    }
-
-    private void receiveMessage(){
-        String message = socketHandler.receiveMessage();
-
-        System.out.println("Received: " + message);
-
-        state = 1;
+        connectionHandler.sendMessage(message, name);
     }
 
 }

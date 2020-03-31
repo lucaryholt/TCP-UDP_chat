@@ -1,9 +1,9 @@
-import Handler.ChatHandler;
+import Handler.ClientHandler;
 
 public class Main {
 
     public static void main(String[] args) {
-        new ChatHandler().chatLoop();
+        new ClientHandler(5001).start();
     }
 
 }
