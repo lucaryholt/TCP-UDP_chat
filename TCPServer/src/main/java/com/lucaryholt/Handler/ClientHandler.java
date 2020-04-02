@@ -89,32 +89,50 @@ class ClientConnection implements Runnable{
         }
     }
 
-    public void receiveMessage(){
+    private JSONObject receiveJSONObject(){
         try {
             JSONParser parser = new JSONParser();
 
             String recv = bufferedReader.readLine();
 
-            JSONObject jsonObject = (JSONObject) parser.parse(recv);
-
-            String name = (String) jsonObject.get("name");
-
-            String message =  (String) jsonObject.get("message");
-
-            if(message.equals("quit")){
-                quit = true;
-            }else{
-                System.out.println("received from " + name + ":" + message);
-
-                clientHandler.sendMessage(message, name);
-            }
-        } catch (IOException | ParseException e){
+            return (JSONObject) parser.parse(recv);
+        } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    private void receiveMessage(){
+        JSONObject jsonObject = receiveJSONObject();
+
+        String name = (String) jsonObject.get("name");
+
+        String message =  (String) jsonObject.get("message");
+
+        if(message.equals("quit")){
+            System.out.println(name + " has terminated connection.");
+            clientHandler.sendMessage((name + " has left the chat..."), "server");
+            quit = true;
+        }else{
+            System.out.println("received from " + name + ":" + message);
+
+            clientHandler.sendMessage(message, name);
+        }
+    }
+
+    private void initiationProtocol(){
+        JSONObject jsonObject = receiveJSONObject();
+
+        String name = (String) jsonObject.get("name");
+
+        System.out.println("client: " + name + " has connected.");
+
+        clientHandler.sendMessage((name + " has joined the chat!"), "server");
     }
 
     @Override
     public void run() {
+        initiationProtocol();
         while(!quit){
             receiveMessage();
         }

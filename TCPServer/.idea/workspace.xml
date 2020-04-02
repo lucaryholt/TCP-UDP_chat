@@ -2,27 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f8161c3-1fa6-4d57-bae9-0d77d1a8d047" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../TCPClient/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/Handler/ChatHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/ChatHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/Handler/ConnectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/ConnectionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/Handler/SocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/SocketHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/target/classes/Handler/ChatHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/target/classes/Handler/ConnectionHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/target/classes/Handler/Receiver.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/target/classes/Handler/SocketHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/target/classes/Main.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Handler/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Handler/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Handler/ClientConnection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Handler/ClientHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Handler/ReceiveClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/TCPServer.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Handler/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Handler/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ClientConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ClientConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Main/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +73,10 @@
       <workItem from="1585142132582" duration="176000" />
       <workItem from="1585487709463" duration="674000" />
       <workItem from="1585642389934" duration="4106000" />
-      <workItem from="1585646843399" duration="1218000" />
+      <workItem from="1585646843399" duration="1425000" />
+      <workItem from="1585651374612" duration="154000" />
+      <workItem from="1585825302833" duration="3000" />
+      <workItem from="1585853271572" duration="2136000" />
     </task>
     <servers />
   </component>
@@ -113,30 +100,34 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1700" y="278" key="FileChooserDialogImpl/0.0.2560.1040@0.0.2560.1040" timestamp="1585042371774" />
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom" timestamp="1585647753164">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1234" height="276" key="GridCell.Tab.0.bottom" timestamp="1585855408776">
+      <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="991" height="275" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1585646565895" />
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1585647753164" />
-    <state width="1638" height="280" key="GridCell.Tab.0.center" timestamp="1585647753163">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1234" height="276" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1585855408776" />
+    <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1585648274593" />
+    <state width="1234" height="276" key="GridCell.Tab.0.center" timestamp="1585855408776">
+      <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="991" height="275" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1585646565895" />
-    <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1585647753163" />
-    <state width="1638" height="280" key="GridCell.Tab.0.left" timestamp="1585647753162">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1234" height="276" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1585855408776" />
+    <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1585648274593" />
+    <state width="1234" height="276" key="GridCell.Tab.0.left" timestamp="1585855408776">
+      <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="991" height="275" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1585646565894" />
-    <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1585647753162" />
-    <state width="1638" height="280" key="GridCell.Tab.0.right" timestamp="1585647753163">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1234" height="276" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1585855408776" />
+    <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1585648274592" />
+    <state width="1234" height="276" key="GridCell.Tab.0.right" timestamp="1585855408776">
+      <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="991" height="275" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1585646565895" />
-    <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1585647753163" />
+    <state width="1234" height="276" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1585855408776" />
+    <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1585648274593" />
     <state x="1403" y="164" key="SettingsEditor" timestamp="1585142157540">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1403" y="164" key="SettingsEditor/0.0.2560.1040@0.0.2560.1040" timestamp="1585142157540" />
+    <state x="1726" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1585825303120">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1726" y="347" key="com.intellij.ide.util.TipDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1585825303120" />
     <state x="1302" y="225" key="new project wizard" timestamp="1585035773095">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
