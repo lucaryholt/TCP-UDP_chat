@@ -1,5 +1,6 @@
-package com.lucaryholt;
+package com.lucaryholt.Handler;
 
+import com.lucaryholt.Tool.ConsolePrinter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,7 +18,7 @@ public class ConnectionHandler {
     private PrintWriter pw;
     private BufferedReader bufferedReader;
 
-    public boolean initiateConnection(String ip, int port){
+    public boolean initiateConnection(String ip, int port, String name){
         try {
             socket = new Socket(ip, port);
 
@@ -25,7 +26,7 @@ public class ConnectionHandler {
 
             pw = new PrintWriter(socket.getOutputStream(), true);
 
-            startThread();
+            startThread(name);
 
             return true;
         } catch (IOException e) {
@@ -34,8 +35,12 @@ public class ConnectionHandler {
         return false;
     }
 
-    private void startThread(){
-        Receiver receiver = new Receiver(bufferedReader);
+    public void initiationProtocol(String name){
+        sendMessage("", name);
+    }
+
+    private void startThread(String name){
+        Receiver receiver = new Receiver(bufferedReader, name);
         Thread thread = new Thread(receiver);
         thread.start();
     }
@@ -52,10 +57,13 @@ public class ConnectionHandler {
 
 class Receiver implements Runnable {
 
+    private ConsolePrinter conPrint = new ConsolePrinter();
     private BufferedReader bufferedReader;
+    private String name;
 
-    public Receiver(BufferedReader bufferedReader) {
+    public Receiver(BufferedReader bufferedReader, String name) {
         this.bufferedReader = bufferedReader;
+        this.name = name;
     }
 
     public void receiveMessage(){
@@ -71,7 +79,9 @@ class Receiver implements Runnable {
             String name = (String) jsonObject.get("name");
             String message = (String) jsonObject.get("message");
 
-            System.out.println(name + ": " + message);
+            if(!this.name.equals(name)){
+                conPrint.receivedMessage(name + ": " + message);
+            }
         } catch (SocketException e){
             ChatHandler.state = 3;
         } catch (IOException | ParseException e) {

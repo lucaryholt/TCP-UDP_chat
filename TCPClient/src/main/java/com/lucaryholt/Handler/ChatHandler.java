@@ -1,4 +1,4 @@
-package com.lucaryholt;
+package com.lucaryholt.Handler;
 
 import java.util.Scanner;
 
@@ -44,7 +44,8 @@ public class ChatHandler {
         int port = input.nextInt();
         input.nextLine();
 
-        if(connectionHandler.initiateConnection(ip, port)){
+        if(connectionHandler.initiateConnection(ip, port, name)){
+            connectionHandler.initiationProtocol(name);
             state = 1;
         }else {
             System.out.println("No server found.");

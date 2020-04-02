@@ -1,5 +1,5 @@
-com/lucaryholt/ChatHandler.class
-com/lucaryholt/Receiver.class
-com/lucaryholt/ConnectionHandler.class
+com/lucaryholt/Handler/ConnectionHandler.class
+com/lucaryholt/Handler/Receiver.class
+com/lucaryholt/Tool/ConsolePrinter.class
+com/lucaryholt/Handler/ChatHandler.class
 com/lucaryholt/Main/Main.class
-com/lucaryholt/SocketHandler.class

@@ -1,6 +1,6 @@
 package com.lucaryholt.Main;
 
-import com.lucaryholt.ChatHandler;
+import com.lucaryholt.Handler.ChatHandler;
 
 public class Main {
 
