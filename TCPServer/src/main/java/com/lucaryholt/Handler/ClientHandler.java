@@ -11,20 +11,33 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ClientHandler {
 
-    private int port;
     private ArrayList<PrintWriter> printWriters = new ArrayList<>();
 
-    public ClientHandler(int port) {
-        this.port = port;
+    public ClientHandler() {
+
     }
 
     public void start(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("What port?");
+        int port = sc.nextInt();
+
+        startConnection(port);
+    }
+
+    private void startConnection(int port){
+        System.out.println("starting server on port: " + port + "...");
+
         ReceiveClient receiveClient = new ReceiveClient(port, this);
         Thread thread = new Thread(receiveClient);
         thread.start();
+
+        System.out.println("ready to receive clients...");
     }
 
     public synchronized void addToPrintWriters(PrintWriter printWriter){
