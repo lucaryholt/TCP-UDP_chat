@@ -2,28 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0eb149e-0dcf-422d-ac3c-31bbb14cfff9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Enum/PacketType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TCPServer/src/main/java/com/lucaryholt/Enum/PacketType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TCPServer/src/main/java/com/lucaryholt/Model/ClientContainer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TCPServer/src/main/java/com/lucaryholt/Model/Packet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Handler/UIHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Handler/ChatHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Handler/ChatHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Handler/ConnectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Handler/ConnectionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TCPClient-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/TCPClient-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TCPClient-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/TCPClient-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ChatHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ChatHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ConnectionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ConnectionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/Receiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/Receiver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Tool/ConsolePrinter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Tool/ConsolePrinter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCPServer/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCPServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPServer/src/main/java/com/lucaryholt/Handler/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/src/main/java/com/lucaryholt/Handler/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Handler/ClientConnection.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Handler/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Handler/ClientHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Handler/ReceiveClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Handler/ReceiveClient.class" afterDir="false" />
     </list>
@@ -64,7 +48,7 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.lucaryholt.Main.Main" />
       <module name="TCPClient" />
       <method v="2">
@@ -100,6 +84,7 @@
       <workItem from="1586849493791" duration="318000" />
       <workItem from="1586854338724" duration="56000" />
       <workItem from="1586854410986" duration="44000" />
+      <workItem from="1586885045439" duration="1232000" />
     </task>
     <servers />
   </component>
@@ -111,15 +96,19 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1512" y="182" key="#Project_Structure/0.0.2560.1040@0.0.2560.1040" timestamp="1586854469795" />
+    <state x="1374" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586856666227">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1374" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1586856666227" />
     <state x="1725" y="239" key="#com.intellij.ide.util.MemberChooser" timestamp="1585644706904">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1725" y="239" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1040@0.0.2560.1040" timestamp="1585644706904" />
-    <state x="325" y="427" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1586854343980">
+    <state x="325" y="427" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1586885052319">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="495" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1586849503394" />
-    <state x="325" y="427" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1586854343980" />
+    <state x="325" y="427" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1586885052319" />
     <state x="377" y="267" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1585644927979">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -128,26 +117,26 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1700" y="275" key="FileChooserDialogImpl/0.0.2560.1040@0.0.2560.1040" timestamp="1585142129843" />
-    <state width="1234" height="274" key="GridCell.Tab.0.bottom" timestamp="1586855057824">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1638" height="280" key="GridCell.Tab.0.bottom" timestamp="1586886438319">
+      <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1234" height="274" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1586855057824" />
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1585648272511" />
-    <state width="1234" height="274" key="GridCell.Tab.0.center" timestamp="1586855057824">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1234" height="274" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1586856801147" />
+    <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1586886438319" />
+    <state width="1638" height="280" key="GridCell.Tab.0.center" timestamp="1586886438318">
+      <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1234" height="274" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1586855057824" />
-    <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1585648272511" />
-    <state width="1234" height="274" key="GridCell.Tab.0.left" timestamp="1586855057824">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1234" height="274" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1586856801147" />
+    <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1586886438318" />
+    <state width="1638" height="280" key="GridCell.Tab.0.left" timestamp="1586886438317">
+      <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1234" height="274" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1586855057824" />
-    <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1585648272510" />
-    <state width="1234" height="274" key="GridCell.Tab.0.right" timestamp="1586855057824">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1234" height="274" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1586856801147" />
+    <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1586886438317" />
+    <state width="1638" height="280" key="GridCell.Tab.0.right" timestamp="1586886438319">
+      <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1234" height="274" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1586855057824" />
-    <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1585648272511" />
+    <state width="1234" height="274" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1586856801147" />
+    <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1586886438319" />
     <state x="417" y="181" key="SettingsEditor" timestamp="1585647198953">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -157,10 +146,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1616" y="344" key="com.intellij.ide.util.TipDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1585139467010" />
-    <state x="29" y="222" key="new project wizard" timestamp="1585645543937">
+    <state x="29" y="222" key="new project wizard" timestamp="1586874279965">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="29" y="222" key="new project wizard/0.0.2560.1040@0.0.2560.1040" timestamp="1585645543937" />
+    <state x="29" y="222" key="new project wizard/0.0.2560.1040@0.0.2560.1040" timestamp="1586874279965" />
     <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1586001624252">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
