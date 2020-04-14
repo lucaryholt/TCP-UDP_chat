@@ -1,30 +1,26 @@
 package com.lucaryholt.Handler;
 
+import com.lucaryholt.Enum.PacketType;
 import com.lucaryholt.Tool.ConsolePrinter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 
 public class ConnectionHandler {
 
-    private Socket socket;
-    private PrintWriter pw;
-    private BufferedReader bufferedReader;
+    private InetAddress ip;
+    private int port;
+    private DatagramSocket datagramSocket;
 
     public boolean initiateConnection(String ip, int port, String name){
         try {
-            socket = new Socket(ip, port);
+            this.ip = InetAddress.getByName(ip);
+            this.port = port;
 
-            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-            pw = new PrintWriter(socket.getOutputStream(), true);
+            datagramSocket = new DatagramSocket();
 
             startThread(name);
 
@@ -35,22 +31,36 @@ public class ConnectionHandler {
         return false;
     }
 
-    public void initiationProtocol(String name){
-        sendMessage("", name);
+    public void initiationProtocol(String name, PacketType type){
+        sendMessage(type, "", name);
     }
 
     private void startThread(String name){
-        Receiver receiver = new Receiver(bufferedReader, name);
+        Receiver receiver = new Receiver(name, datagramSocket);
         Thread thread = new Thread(receiver);
         thread.start();
     }
 
-    public void sendMessage(String message, String name){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("message", message);
-        jsonObject.put("name", name);
+    public void quitMessage(){
+        sendMessage(PacketType.QUIT, "", "");
+    }
 
-        pw.println(jsonObject.toJSONString());
+    public void sendMessage(PacketType type, String message, String name){
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("type", type.toString());
+            jsonObject.put("msg", message);
+            jsonObject.put("name", name);
+
+            String data = jsonObject.toJSONString();
+
+            byte[] sendArr = data.getBytes();
+
+            DatagramPacket sendPacket = new DatagramPacket(sendArr, sendArr.length, ip, port);
+            datagramSocket.send(sendPacket);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
@@ -58,26 +68,32 @@ public class ConnectionHandler {
 class Receiver implements Runnable {
 
     private ConsolePrinter conPrint = new ConsolePrinter();
-    private BufferedReader bufferedReader;
     private String name;
+    private DatagramSocket datagramSocket;
 
-    public Receiver(BufferedReader bufferedReader, String name) {
-        this.bufferedReader = bufferedReader;
+    public Receiver(String name, DatagramSocket datagramSocket) {
         this.name = name;
+        this.datagramSocket = datagramSocket;
     }
 
     public void receiveMessage(){
         try {
             JSONParser parser = new JSONParser();
 
-            String recv = bufferedReader.readLine();
+            byte[] receiveArr = new byte[1000];
+
+            DatagramPacket receivePacket = new DatagramPacket(receiveArr, receiveArr.length);
+
+            datagramSocket.receive(receivePacket);
+
+            String recv = new String(receivePacket.getData(), 0, receivePacket.getLength());
 
             //System.out.println("raw: " + recv);
 
             JSONObject jsonObject = (JSONObject) parser.parse(recv);
 
             String name = (String) jsonObject.get("name");
-            String message = (String) jsonObject.get("message");
+            String message = (String) jsonObject.get("msg");
 
             if(!this.name.equals(name)){
                 conPrint.receivedMessage(name + ": " + message);

@@ -1,5 +1,7 @@
 package com.lucaryholt.Handler;
 
+import com.lucaryholt.Enum.PacketType;
+
 import java.util.Scanner;
 
 public class ChatHandler {
@@ -45,7 +47,7 @@ public class ChatHandler {
         input.nextLine();
 
         if(connectionHandler.initiateConnection(ip, port, name)){
-            connectionHandler.initiationProtocol(name);
+            connectionHandler.initiationProtocol(name, PacketType.INIT);
             state = 1;
         }else {
             System.out.println("No server found.");
@@ -56,7 +58,13 @@ public class ChatHandler {
     private void sendMessage(){
         String message = input.nextLine();
 
-        connectionHandler.sendMessage(message, name);
+        if(message.equals("quit")){
+            connectionHandler.quitMessage();
+            System.out.println("closing connection...");
+            state = 2;
+        }else{
+            connectionHandler.sendMessage(PacketType.MSG, message, name);
+        }
     }
 
 }

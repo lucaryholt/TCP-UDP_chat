@@ -1,21 +1,23 @@
 package com.lucaryholt.Handler;
 
+import com.lucaryholt.Enum.PacketType;
+import com.lucaryholt.Model.ClientContainer;
+import com.lucaryholt.Model.Packet;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ClientHandler {
 
-    private ArrayList<PrintWriter> printWriters = new ArrayList<>();
+    private List<ClientContainer> clientContainers = new ArrayList<>(); //Lav om til map
+    private DatagramSocket datagramSocket;
+    private JSONParser jsonParser = new JSONParser();
 
     public ClientHandler() {
 
@@ -27,39 +29,108 @@ public class ClientHandler {
         System.out.println("What port?");
         int port = sc.nextInt();
 
+        initSendSocket(port);
         startConnection(port);
+    }
+
+    private void initSendSocket(int port){
+        try {
+            datagramSocket = new DatagramSocket(port);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
     }
 
     private void startConnection(int port){
         System.out.println("starting server on port: " + port + "...");
 
-        ReceiveClient receiveClient = new ReceiveClient(port, this);
+        ReceiveClient receiveClient = new ReceiveClient(datagramSocket, this);
         Thread thread = new Thread(receiveClient);
         thread.start();
 
         System.out.println("ready to receive clients...");
     }
 
-    public synchronized void addToPrintWriters(PrintWriter printWriter){
-        printWriters.add(printWriter);
-    }
+    public synchronized void receivePacket(DatagramPacket packet){
+        try {
+            String data = new String(packet.getData(), 0, packet.getLength());
 
-    public synchronized void removeFromPrintWriters(PrintWriter printWriter){
-        for(PrintWriter pw : printWriters){
-            if(pw.equals(printWriter)){
-                printWriters.remove(pw);
-                pw.close();
-            }
+            JSONObject jsonObject = (JSONObject) jsonParser.parse(data);
+
+            Packet recvPacket = new Packet();
+            recvPacket.setType(getType((String) jsonObject.get("type")));
+            recvPacket.setName((String) jsonObject.get("name"));
+            recvPacket.setMsg((String) jsonObject.get("msg"));
+
+            packetDecision(recvPacket, packet);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 
-    public synchronized void sendMessage(String message, String name){
-        for(PrintWriter pw : printWriters){
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("message", message);
-            jsonObject.put("name", name);
+    private PacketType getType(String type){
+        switch (type) {
+            case "INIT":
+                return PacketType.INIT;
+            case "MSG":
+                return PacketType.MSG;
+            case "QUIT":
+                return PacketType.QUIT;
+        }
+        return null;
+    }
 
-            pw.println(jsonObject.toJSONString());
+    private void packetDecision(Packet recvPacket, DatagramPacket packet){
+        switch(recvPacket.getType()){
+            case INIT:  addToClientContainers(packet);
+                        break;
+            case MSG:   sendMessage(recvPacket.getMsg(), recvPacket.getName());
+                        break;
+            case QUIT:  removeFromClientContainers(packet);
+                        break;
+        }
+    }
+
+    private void addToClientContainers(DatagramPacket packet){
+        ClientContainer clientContainer = new ClientContainer(packet.getAddress(), packet.getPort());
+        if(!alreadyInList(clientContainer)){
+            clientContainers.add(clientContainer);
+            System.out.println("added client to list...");
+        }else{
+            System.out.println("client already added...");
+        }
+    }
+
+    //Does not work at the moment, always returns false
+    private boolean alreadyInList(ClientContainer clientContainer){
+        for(ClientContainer cC : clientContainers){
+            if(clientContainer.getIp().getCanonicalHostName().equals(cC.getIp().getCanonicalHostName()) && clientContainer.getPort() == cC.getPort()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void removeFromClientContainers(DatagramPacket packet){
+        ClientContainer clientContainer = new ClientContainer(packet.getAddress(), packet.getPort());
+        clientContainers.remove(clientContainer);
+    }
+
+    private void sendMessage(String message, String name){
+        try {
+            for(ClientContainer cC : clientContainers){
+                System.out.println("msg: " + message + ", from: " + name);
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("msg", message);
+                jsonObject.put("name", name);
+
+                byte[] sendArr = jsonObject.toJSONString().getBytes();
+                DatagramPacket sendPacket = new DatagramPacket(sendArr, sendArr.length, cC.getIp(), cC.getPort());
+                datagramSocket.send(sendPacket);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -68,102 +139,29 @@ public class ClientHandler {
 class ReceiveClient implements Runnable{
 
     private ClientHandler clientHandler;
-    private ServerSocket serverSocket;
+    private DatagramSocket datagramSocket;
 
-    public ReceiveClient(int port, ClientHandler clientHandler) {
+    public ReceiveClient(DatagramSocket datagramSocket, ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
-        try {
-            serverSocket = new ServerSocket(port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.datagramSocket = datagramSocket;
     }
 
     @Override
     public void run() {
         while(true){
             try {
-                new Thread(new ClientConnection(serverSocket.accept(), clientHandler)).start();
+                while(true){
+                    byte[] receiveArr = new byte[1000];
 
-                System.out.println("client connected and added.");
+                    DatagramPacket receivePacket = new DatagramPacket(receiveArr, receiveArr.length);
+
+                    datagramSocket.receive(receivePacket);
+
+                    clientHandler.receivePacket(receivePacket);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-}
-
-class ClientConnection implements Runnable{
-
-    private BufferedReader bufferedReader;
-    private PrintWriter printWriter;
-    private ClientHandler clientHandler;
-    private boolean quit = false;
-
-    public ClientConnection(Socket socket, ClientHandler clientHandler){
-        try {
-            this.clientHandler = clientHandler;
-            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            printWriter = new PrintWriter(socket.getOutputStream(), true);
-            clientHandler.addToPrintWriters(printWriter);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private JSONObject receiveJSONObject(){
-        try {
-            JSONParser parser = new JSONParser();
-
-            String recv = bufferedReader.readLine();
-
-            return (JSONObject) parser.parse(recv);
-        } catch (ParseException | IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private void receiveMessage(){
-        try{
-            JSONObject jsonObject = receiveJSONObject();
-
-            String name = (String) jsonObject.get("name");
-
-            String message =  (String) jsonObject.get("message");
-
-            if(message.equals("quit")){
-                System.out.println(name + " has terminated connection.");
-                clientHandler.sendMessage((name + " has left the chat..."), "server");
-                //clientHandler.removeFromPrintWriters(printWriter);
-                bufferedReader.close();
-                printWriter.close();
-                quit = true;
-            }else{
-                System.out.println("received from " + name + ":" + message);
-
-                clientHandler.sendMessage(message, name);
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    private void initiationProtocol(){
-        JSONObject jsonObject = receiveJSONObject();
-
-        String name = (String) jsonObject.get("name");
-
-        System.out.println("client: " + name + " has connected.");
-
-        clientHandler.sendMessage((name + " has joined the chat!"), "server");
-    }
-
-    @Override
-    public void run() {
-        initiationProtocol();
-        while(!quit){
-            receiveMessage();
         }
     }
 }
