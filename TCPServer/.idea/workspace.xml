@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f8161c3-1fa6-4d57-bae9-0d77d1a8d047" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/UIHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCPClient/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/ChatHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/ChatHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/ConnectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/ConnectionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/UIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/UIHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/ChatHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/ChatHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/ConnectionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/ConnectionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/Receiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/Receiver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ReceiveClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ReceiveClient.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +86,7 @@
       <workItem from="1586001650670" duration="461000" />
       <workItem from="1586504310721" duration="34000" />
       <workItem from="1586849820342" duration="7154000" />
-      <workItem from="1586885063989" duration="650000" />
+      <workItem from="1586885063989" duration="1259000" />
     </task>
     <servers />
   </component>

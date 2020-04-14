@@ -11,14 +11,15 @@ import java.net.*;
 
 public class ConnectionHandler {
 
-    private InetAddress ip;
-    private int port;
-    private DatagramSocket datagramSocket;
+    private static InetAddress ip;
+    private static int port;
+    private static DatagramSocket datagramSocket;
+    private static String name;
 
-    public boolean initiateConnection(String ip, int port, String name){
+    public static boolean initiateConnection(String ip, int port, String name){
         try {
-            this.ip = InetAddress.getByName(ip);
-            this.port = port;
+            ConnectionHandler.ip = InetAddress.getByName(ip);
+            ConnectionHandler.port = port;
 
             datagramSocket = new DatagramSocket();
 
@@ -31,11 +32,11 @@ public class ConnectionHandler {
         return false;
     }
 
-    public void initiationProtocol(String name, PacketType type){
+    public static void initiationProtocol(String name, PacketType type){
         sendMessage(type, "", name);
     }
 
-    private void startThread(String name){
+    private static void startThread(String name){
         Receiver receiver = new Receiver(name, datagramSocket);
         Thread thread = new Thread(receiver);
         thread.start();
@@ -45,7 +46,7 @@ public class ConnectionHandler {
         sendMessage(PacketType.QUIT, "", "");
     }
 
-    public void sendMessage(PacketType type, String message, String name){
+    public static void sendMessage(PacketType type, String message, String name){
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("type", type.toString());
@@ -95,8 +96,12 @@ class Receiver implements Runnable {
             String name = (String) jsonObject.get("name");
             String message = (String) jsonObject.get("msg");
 
-            if(!this.name.equals(name)){
-                conPrint.receivedMessage(name + ": " + message);
+            if(ChatHandler.ui){
+                UIHandler.newChat(name, message);
+            } else{
+                if(!this.name.equals(name)){
+                    conPrint.receivedMessage(name + ": " + message);
+                }
             }
         } catch (SocketException e){
             ChatHandler.state = 3;
