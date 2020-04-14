@@ -44,6 +44,15 @@ public class ClientHandler {
         printWriters.add(printWriter);
     }
 
+    public synchronized void removeFromPrintWriters(PrintWriter printWriter){
+        for(PrintWriter pw : printWriters){
+            if(pw.equals(printWriter)){
+                printWriters.remove(pw);
+                pw.close();
+            }
+        }
+    }
+
     public synchronized void sendMessage(String message, String name){
         for(PrintWriter pw : printWriters){
             JSONObject jsonObject = new JSONObject();
@@ -116,20 +125,27 @@ class ClientConnection implements Runnable{
     }
 
     private void receiveMessage(){
-        JSONObject jsonObject = receiveJSONObject();
+        try{
+            JSONObject jsonObject = receiveJSONObject();
 
-        String name = (String) jsonObject.get("name");
+            String name = (String) jsonObject.get("name");
 
-        String message =  (String) jsonObject.get("message");
+            String message =  (String) jsonObject.get("message");
 
-        if(message.equals("quit")){
-            System.out.println(name + " has terminated connection.");
-            clientHandler.sendMessage((name + " has left the chat..."), "server");
-            quit = true;
-        }else{
-            System.out.println("received from " + name + ":" + message);
+            if(message.equals("quit")){
+                System.out.println(name + " has terminated connection.");
+                clientHandler.sendMessage((name + " has left the chat..."), "server");
+                //clientHandler.removeFromPrintWriters(printWriter);
+                bufferedReader.close();
+                printWriter.close();
+                quit = true;
+            }else{
+                System.out.println("received from " + name + ":" + message);
 
-            clientHandler.sendMessage(message, name);
+                clientHandler.sendMessage(message, name);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
         }
     }
 

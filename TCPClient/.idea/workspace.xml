@@ -2,11 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0eb149e-0dcf-422d-ac3c-31bbb14cfff9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TCPClient-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/TCPClient-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TCPClient-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/TCPClient-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCPServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCPServer/src/main/java/com/lucaryholt/Handler/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/src/main/java/com/lucaryholt/Handler/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPServer/src/main/java/com/lucaryholt/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/src/main/java/com/lucaryholt/Main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPServer/target/TCPServer-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/target/TCPServer-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPServer/target/TCPServer-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/target/TCPServer-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPServer/target/classes/META-INF/TCPServer.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Handler/ClientConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Handler/ClientConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Handler/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Handler/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Handler/ReceiveClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/target/classes/com/lucaryholt/Handler/ReceiveClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPServer/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPServer/target/maven-archiver/pom.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +83,9 @@
       <workItem from="1585642381257" duration="2751000" />
       <workItem from="1585646822066" duration="1444000" />
       <workItem from="1585853276654" duration="2133000" />
+      <workItem from="1586001550429" duration="91000" />
+      <workItem from="1586504318736" duration="36000" />
+      <workItem from="1586510927205" duration="253000" />
     </task>
     <servers />
   </component>
@@ -86,6 +97,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1725" y="239" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1040@0.0.2560.1040" timestamp="1585644706904" />
+    <state x="495" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1586849503394">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="495" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1586849503394" />
     <state x="377" y="267" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1585644927979">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -127,5 +142,9 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="29" y="222" key="new project wizard/0.0.2560.1040@0.0.2560.1040" timestamp="1585645543937" />
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1586001624252">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1586001624252" />
   </component>
 </project>
