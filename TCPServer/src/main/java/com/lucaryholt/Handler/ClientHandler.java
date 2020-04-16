@@ -19,6 +19,8 @@ public class ClientHandler {
     private DatagramSocket datagramSocket;
     private JSONParser jsonParser = new JSONParser();
 
+    private Long clientId = 1L;
+
     public ClientHandler() {
 
     }
@@ -58,6 +60,7 @@ public class ClientHandler {
             JSONObject jsonObject = (JSONObject) jsonParser.parse(data);
 
             Packet recvPacket = new Packet();
+            recvPacket.setId((Long) jsonObject.get("id"));
             recvPacket.setType(getType((String) jsonObject.get("type")));
             recvPacket.setName((String) jsonObject.get("name"));
             recvPacket.setMsg((String) jsonObject.get("msg"));
@@ -82,40 +85,60 @@ public class ClientHandler {
 
     private void packetDecision(Packet recvPacket, DatagramPacket packet){
         switch(recvPacket.getType()){
-            case INIT:  addToClientContainers(recvPacket.getName(), packet);
+            case INIT:  initiationProtocol(recvPacket, packet);
                         break;
-            case MSG:   sendMessage(recvPacket.getMsg(), recvPacket.getName());
+            case MSG:   sendMessages(PacketType.MSG, recvPacket.getMsg(), recvPacket.getName());
                         break;
-            case QUIT:  removeFromClientContainers(recvPacket.getName(), packet);
+            case QUIT:  removeFromClientContainers(recvPacket, packet);
                         break;
         }
     }
 
-    private void addToClientContainers(String name, DatagramPacket packet){
-        ClientContainer clientContainer = new ClientContainer(name, packet.getAddress(), packet.getPort());
+    private Long generateId(){
+        Long temp = clientId;
+        clientId++;
+        return temp;
+    }
+
+    private void initiationProtocol(Packet packet, DatagramPacket dGPacket){
+        ClientContainer clientContainer = new ClientContainer(packet.getName(), packet.getId(), dGPacket.getAddress(), dGPacket.getPort());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("type", PacketType.INIT.toString());
+        jsonObject.put("name", clientContainer.getName());
+
         if(!alreadyInList(clientContainer)){
-            clientContainers.add(clientContainer);
-            sendMessage((clientContainer.getName() + " has joined the chat!"), "server");
-            System.out.println("added client to list...");
-        }else{
-            System.out.println("client already added...");
+            clientContainer.setId(generateId());
+
+            jsonObject.put("id", clientContainer.getId());
+            jsonObject.put("names", generateNameList());
+            jsonObject.put("msg", "ACK");
+
+            sendMessage(jsonObject, clientContainer);
+
+            addToClientContainers(clientContainer);
         }
+    }
+
+    private void addToClientContainers(ClientContainer clientContainer){
+        clientContainers.add(clientContainer);
+        sendMessages(PacketType.MSG, (clientContainer.getName() + " has joined the chat!"), "server");
+        System.out.println("added client to list...");
     }
 
     //TODO Does not work at the moment, always returns false, will be easier with ID's
     private boolean alreadyInList(ClientContainer clientContainer){
         for(ClientContainer cC : clientContainers){
-            if(clientContainer.getIp().getCanonicalHostName().equals(cC.getIp().getCanonicalHostName()) && clientContainer.getPort() == cC.getPort()){
+            if(clientContainer.getName().equals(cC.getName())){
                 return true;
             }
         }
         return false;
     }
 
-    private void removeFromClientContainers(String name, DatagramPacket packet){
-        ClientContainer clientContainer = new ClientContainer(name, packet.getAddress(), packet.getPort());
+    private void removeFromClientContainers(Packet packet, DatagramPacket dGPacket){
+        ClientContainer clientContainer = new ClientContainer(packet.getName(), packet.getId(), dGPacket.getAddress(), dGPacket.getPort());
         clientContainers.remove(clientContainer);
-        sendMessage((clientContainer.getName() + " has left the chat."), "server");
+        sendMessages(PacketType.MSG, (clientContainer.getName() + " has left the chat."), "server");
     }
 
     private List<String> generateNameList(){
@@ -126,21 +149,32 @@ public class ClientHandler {
         return names;
     }
 
-    private void sendMessage(String message, String name){
+    private void sendMessages(PacketType type, String message, String name){
+        List<String> names = generateNameList();
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("type", type.toString());
+        jsonObject.put("msg", message);
+        jsonObject.put("name", name);
+        jsonObject.put("names", names);
+
+
+        System.out.println("msg: " + message + ", from: " + name);
+        for(ClientContainer cC : clientContainers){
+            sendMessage(jsonObject, cC);
+            System.out.println("sending to: " + cC.getId());
+        }
+    }
+
+    private void sendMessage(JSONObject jsonObject, ClientContainer cC){
         try {
-            List<String> names = generateNameList();
-            for(ClientContainer cC : clientContainers){
-                System.out.println("msg: " + message + ", from: " + name);
+            jsonObject.put("id", cC.getId());
 
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("msg", message);
-                jsonObject.put("name", name);
-                jsonObject.put("names", names);
+            System.out.println("debug: " + jsonObject.toJSONString());
 
-                byte[] sendArr = jsonObject.toJSONString().getBytes();
-                DatagramPacket sendPacket = new DatagramPacket(sendArr, sendArr.length, cC.getIp(), cC.getPort());
-                datagramSocket.send(sendPacket);
-            }
+            byte[] sendArr = jsonObject.toJSONString().getBytes();
+            DatagramPacket sendPacket = new DatagramPacket(sendArr, sendArr.length, cC.getIp(), cC.getPort());
+            datagramSocket.send(sendPacket);
         } catch (IOException e) {
             e.printStackTrace();
         }

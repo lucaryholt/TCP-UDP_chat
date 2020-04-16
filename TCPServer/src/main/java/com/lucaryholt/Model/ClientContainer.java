@@ -6,14 +6,16 @@ import java.util.Objects;
 public class ClientContainer {
 
     private String name;
+    private Long id;
     private InetAddress ip;
     private int port;
 
     public ClientContainer() {
     }
 
-    public ClientContainer(String name, InetAddress ip, int port) {
+    public ClientContainer(String name, Long id, InetAddress ip, int port) {
         this.name = name;
+        this.id = id;
         this.ip = ip;
         this.port = port;
     }
@@ -40,6 +42,14 @@ public class ClientContainer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

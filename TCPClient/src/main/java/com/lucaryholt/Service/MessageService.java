@@ -2,6 +2,7 @@ package com.lucaryholt.Service;
 
 import com.lucaryholt.Enum.PacketType;
 import com.lucaryholt.Handler.ConnectionHandler;
+import com.lucaryholt.Model.Packet;
 import com.lucaryholt.UI.UI;
 
 import java.io.IOException;
@@ -16,6 +17,8 @@ public class MessageService {
     private InetAddress ip;
     private int port;
     private String name;
+
+    private Long id;
 
     public MessageService(UI ui) {
         cH = new ConnectionHandler(this);
@@ -42,8 +45,32 @@ public class MessageService {
         return true;
     }
 
+    private boolean init(Packet initPacket){
+        if(initPacket.getMsg().equals("ACK")){
+            this.id = initPacket.getId();
+            updateNames(initPacket.getNames());
+            newChat("server", "Connected!");
+            return true;
+        }
+        newChat("server", "Not connected... Try again...");
+        return false;
+    }
+
+    public void packetDecision(Packet recvPacket){
+        switch (recvPacket.getType()){
+            case INIT:  System.out.println("init packet...");
+                        init(recvPacket);
+                        break;
+            case MSG:   updateNames(recvPacket.getNames());
+                        newChat(recvPacket.getName(), recvPacket.getMsg());
+                        break;
+            case QUIT:  quitMessage();
+                        break;
+        }
+    }
+
     public void quitMessage(){
-        cH.quitMessage(name, ip, port);
+        cH.quitMessage(name, id, ip, port);
     }
 
     public void sendMessage(String message){
@@ -55,7 +82,7 @@ public class MessageService {
     }
 
     public void sendPacket(PacketType type, String message, String name){
-        cH.sendPacket(type, message, name, ip, port);
+        cH.sendPacket(type, id, message, name, ip, port);
     }
 
     public void newChat(String name, String message){
