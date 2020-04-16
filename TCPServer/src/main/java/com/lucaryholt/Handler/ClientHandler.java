@@ -82,26 +82,27 @@ public class ClientHandler {
 
     private void packetDecision(Packet recvPacket, DatagramPacket packet){
         switch(recvPacket.getType()){
-            case INIT:  addToClientContainers(packet);
+            case INIT:  addToClientContainers(recvPacket.getName(), packet);
                         break;
             case MSG:   sendMessage(recvPacket.getMsg(), recvPacket.getName());
                         break;
-            case QUIT:  removeFromClientContainers(packet);
+            case QUIT:  removeFromClientContainers(recvPacket.getName(), packet);
                         break;
         }
     }
 
-    private void addToClientContainers(DatagramPacket packet){
-        ClientContainer clientContainer = new ClientContainer(packet.getAddress(), packet.getPort());
+    private void addToClientContainers(String name, DatagramPacket packet){
+        ClientContainer clientContainer = new ClientContainer(name, packet.getAddress(), packet.getPort());
         if(!alreadyInList(clientContainer)){
             clientContainers.add(clientContainer);
+            sendMessage((clientContainer.getName() + " has joined the chat!"), "server");
             System.out.println("added client to list...");
         }else{
             System.out.println("client already added...");
         }
     }
 
-    //Does not work at the moment, always returns false
+    //TODO Does not work at the moment, always returns false, will be easier with ID's
     private boolean alreadyInList(ClientContainer clientContainer){
         for(ClientContainer cC : clientContainers){
             if(clientContainer.getIp().getCanonicalHostName().equals(cC.getIp().getCanonicalHostName()) && clientContainer.getPort() == cC.getPort()){
@@ -111,19 +112,30 @@ public class ClientHandler {
         return false;
     }
 
-    private void removeFromClientContainers(DatagramPacket packet){
-        ClientContainer clientContainer = new ClientContainer(packet.getAddress(), packet.getPort());
+    private void removeFromClientContainers(String name, DatagramPacket packet){
+        ClientContainer clientContainer = new ClientContainer(name, packet.getAddress(), packet.getPort());
         clientContainers.remove(clientContainer);
+        sendMessage((clientContainer.getName() + " has left the chat."), "server");
+    }
+
+    private List<String> generateNameList(){
+        List<String> names = new ArrayList<>();
+        for(ClientContainer cC : clientContainers){
+            names.add(cC.getName());
+        }
+        return names;
     }
 
     private void sendMessage(String message, String name){
         try {
+            List<String> names = generateNameList();
             for(ClientContainer cC : clientContainers){
                 System.out.println("msg: " + message + ", from: " + name);
 
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("msg", message);
                 jsonObject.put("name", name);
+                jsonObject.put("names", names);
 
                 byte[] sendArr = jsonObject.toJSONString().getBytes();
                 DatagramPacket sendPacket = new DatagramPacket(sendArr, sendArr.length, cC.getIp(), cC.getPort());

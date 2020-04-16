@@ -5,13 +5,15 @@ import java.util.Objects;
 
 public class ClientContainer {
 
+    private String name;
     private InetAddress ip;
     private int port;
 
     public ClientContainer() {
     }
 
-    public ClientContainer(InetAddress ip, int port) {
+    public ClientContainer(String name, InetAddress ip, int port) {
+        this.name = name;
         this.ip = ip;
         this.port = port;
     }
@@ -30,6 +32,14 @@ public class ClientContainer {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
