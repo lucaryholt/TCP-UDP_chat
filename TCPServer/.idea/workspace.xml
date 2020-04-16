@@ -3,18 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="9f8161c3-1fa6-4d57-bae9-0d77d1a8d047" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../TCPClient/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/target/TCPClient-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/target/TCPClient-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/target/TCPClient-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/target/TCPClient-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCPClient/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/ChatHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/ChatHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/ConnectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/ConnectionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/UIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Handler/UIHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/src/main/java/com/lucaryholt/Main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/ChatHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/ChatHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/ConnectionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/ConnectionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/Receiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCPClient/target/classes/com/lucaryholt/Handler/Receiver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Handler/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lucaryholt/Handler/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TCPServer-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/TCPServer-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TCPServer-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/TCPServer-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/TCPServer.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ClientConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ClientConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ReceiveClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lucaryholt/Handler/ReceiveClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +21,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -88,6 +85,8 @@
       <workItem from="1585855707009" duration="204000" />
       <workItem from="1586001650670" duration="461000" />
       <workItem from="1586504310721" duration="34000" />
+      <workItem from="1586849820342" duration="7154000" />
+      <workItem from="1586885063989" duration="1259000" />
     </task>
     <servers />
   </component>
@@ -95,10 +94,15 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1713" y="232" key="#com.intellij.ide.util.MemberChooser" timestamp="1585643954769">
+    <state x="1713" y="232" key="#com.intellij.ide.util.MemberChooser" timestamp="1586853398670">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="1713" y="232" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1040@0.0.2560.1040" timestamp="1585643954769" />
+    <state x="1713" y="232" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1040@0.0.2560.1040" timestamp="1586853398670" />
+    <state x="1160" y="427" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1586885069473">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="1768" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1586849829343" />
+    <state x="1160" y="427" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1586885069473" />
     <state x="317" y="469" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1585647495364">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -107,30 +111,50 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1638" y="270" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1585644307776" />
+    <state x="370" y="270" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1586853714513">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="370" y="270" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1586853714513" />
     <state x="1700" y="278" key="FileChooserDialogImpl" timestamp="1585042371774">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1700" y="278" key="FileChooserDialogImpl/0.0.2560.1040@0.0.2560.1040" timestamp="1585042371774" />
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom" timestamp="1586002138976">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1234" height="346" key="GridCell.Tab.0.bottom" timestamp="1586876720110">
+      <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1234" height="273" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1585855911142" />
+    <state width="1234" height="346" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1586876720110" />
     <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1586002138976" />
-    <state width="1638" height="280" key="GridCell.Tab.0.center" timestamp="1586002138975">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1234" height="346" key="GridCell.Tab.0.center" timestamp="1586876720110">
+      <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1234" height="273" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1585855911142" />
+    <state width="1234" height="346" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1586876720110" />
     <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1586002138975" />
-    <state width="1638" height="280" key="GridCell.Tab.0.left" timestamp="1586002138974">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1234" height="346" key="GridCell.Tab.0.left" timestamp="1586876720110">
+      <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1234" height="273" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1585855911142" />
+    <state width="1234" height="346" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1586876720110" />
     <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1586002138974" />
-    <state width="1638" height="280" key="GridCell.Tab.0.right" timestamp="1586002138975">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1234" height="346" key="GridCell.Tab.0.right" timestamp="1586876720110">
+      <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1234" height="273" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1585855911142" />
+    <state width="1234" height="346" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1586876720110" />
     <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1586002138975" />
+    <state width="1234" height="346" key="GridCell.Tab.1.bottom" timestamp="1586876720110">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1234" height="346" key="GridCell.Tab.1.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1586876720110" />
+    <state width="1234" height="346" key="GridCell.Tab.1.center" timestamp="1586876720110">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1234" height="346" key="GridCell.Tab.1.center/0.0.2560.1040@0.0.2560.1040" timestamp="1586876720110" />
+    <state width="1234" height="346" key="GridCell.Tab.1.left" timestamp="1586876720110">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1234" height="346" key="GridCell.Tab.1.left/0.0.2560.1040@0.0.2560.1040" timestamp="1586876720110" />
+    <state width="1234" height="346" key="GridCell.Tab.1.right" timestamp="1586876720110">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1234" height="346" key="GridCell.Tab.1.right/0.0.2560.1040@0.0.2560.1040" timestamp="1586876720110" />
     <state x="1403" y="164" key="SettingsEditor" timestamp="1585142157540">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>

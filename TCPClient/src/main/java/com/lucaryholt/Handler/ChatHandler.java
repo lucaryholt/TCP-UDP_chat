@@ -1,28 +1,35 @@
 package com.lucaryholt.Handler;
 
+import com.lucaryholt.Enum.PacketType;
+
 import java.util.Scanner;
 
 public class ChatHandler {
 
     public static int state = 0;
 
-    private ConnectionHandler connectionHandler;
+    private static ConnectionHandler connectionHandler;
     private Scanner input;
-    private String name;
+    public static String name;
+    public static boolean ui;
 
-    public ChatHandler() {
+    public ChatHandler(boolean ui) {
         connectionHandler = new ConnectionHandler();
         input = new Scanner(System.in);
+        this.ui = ui;
+
+        UIHandler.connectionHandler = connectionHandler;
+        UIHandler.chatHandler = this;
     }
 
     public void chatLoop(){
         System.out.println("Welcome to the chat!");
 
-        while(true){
+        while(!ui){
             switch (state){
                 case 0 :    initiateConnection();
                             break;
-                case 1 :    sendMessage();
+                case 1 :    messageInput();
                             break;
                 case 2 :    System.out.println("Connection terminated...");
                             System.exit(1);
@@ -45,7 +52,7 @@ public class ChatHandler {
         input.nextLine();
 
         if(connectionHandler.initiateConnection(ip, port, name)){
-            connectionHandler.initiationProtocol(name);
+            connectionHandler.initiationProtocol(name, PacketType.INIT);
             state = 1;
         }else {
             System.out.println("No server found.");
@@ -53,10 +60,20 @@ public class ChatHandler {
         }
     }
 
-    private void sendMessage(){
+    private void messageInput(){
         String message = input.nextLine();
 
-        connectionHandler.sendMessage(message, name);
+        sendMessage(message);
+    }
+
+    public static void sendMessage(String message){
+        if(message.equals("quit")){
+            connectionHandler.quitMessage();
+            System.out.println("closing connection...");
+            state = 2;
+        }else{
+            connectionHandler.sendMessage(PacketType.MSG, message, name);
+        }
     }
 
 }
