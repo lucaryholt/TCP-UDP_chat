@@ -1,52 +1,51 @@
 package com.lucaryholt.Handler;
 
 import com.lucaryholt.Enum.PacketType;
-import com.lucaryholt.Tool.ConsolePrinter;
+import com.lucaryholt.Service.MessageService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConnectionHandler {
 
-    private static InetAddress ip;
-    private static int port;
-    private static DatagramSocket datagramSocket;
-    private static String name;
+    private MessageService mS;
 
-    public static boolean initiateConnection(String ip, int port, String name){
+    private DatagramSocket datagramSocket;
+
+    public ConnectionHandler(MessageService mS) {
+        this.mS = mS;
+    }
+
+    public void initiateConnection(){
         try {
-            ConnectionHandler.ip = InetAddress.getByName(ip);
-            ConnectionHandler.port = port;
-
             datagramSocket = new DatagramSocket();
 
-            startThread(name);
-
-            return true;
+            startThread();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
-    public static void initiationProtocol(String name, PacketType type){
-        sendMessage(type, "", name);
+    public void initiationProtocol(String name, PacketType type, InetAddress ip, int port){
+        sendPacket(type, "", name, ip, port);
     }
 
-    private static void startThread(String name){
-        Receiver receiver = new Receiver(name, datagramSocket);
+    private void startThread(){
+        Receiver receiver = new Receiver(datagramSocket, mS);
         Thread thread = new Thread(receiver);
         thread.start();
     }
 
-    public void quitMessage(){
-        sendMessage(PacketType.QUIT, "", "");
+    public void quitMessage(String name, InetAddress ip, int port){
+        sendPacket(PacketType.QUIT, "", name, ip, port);
     }
 
-    public static void sendMessage(PacketType type, String message, String name){
+    public void sendPacket(PacketType type, String message, String name, InetAddress ip, int port){
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("type", type.toString());
@@ -64,17 +63,18 @@ public class ConnectionHandler {
         }
     }
 
+
 }
 
 class Receiver implements Runnable {
 
-    private ConsolePrinter conPrint = new ConsolePrinter();
-    private String name;
+    private MessageService mS;
+
     private DatagramSocket datagramSocket;
 
-    public Receiver(String name, DatagramSocket datagramSocket) {
-        this.name = name;
+    public Receiver(DatagramSocket datagramSocket, MessageService mS) {
         this.datagramSocket = datagramSocket;
+        this.mS = mS;
     }
 
     public void receiveMessage(){
@@ -89,22 +89,16 @@ class Receiver implements Runnable {
 
             String recv = new String(receivePacket.getData(), 0, receivePacket.getLength());
 
-            //System.out.println("raw: " + recv);
-
             JSONObject jsonObject = (JSONObject) parser.parse(recv);
 
             String name = (String) jsonObject.get("name");
             String message = (String) jsonObject.get("msg");
+            List<String> names = (ArrayList<String>) jsonObject.get("names");
 
-            if(ChatHandler.ui){
-                UIHandler.newChat(name, message);
-            } else{
-                if(!this.name.equals(name)){
-                    conPrint.receivedMessage(name + ": " + message);
-                }
-            }
+            mS.newChat(name, message);
+            mS.updateNames(names);
         } catch (SocketException e){
-            ChatHandler.state = 3;
+            //TODO ChatHandler.state = 3;
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
