@@ -76,7 +76,7 @@ public class Console implements UI {
     private void listNames(){
         StringBuilder sb = new StringBuilder("Online now: ");
         for(String s: names){
-            sb.append(", ").append(s);
+            sb.append(s).append(" | ");
         }
         sb.append(".");
         System.out.println(sb.toString());

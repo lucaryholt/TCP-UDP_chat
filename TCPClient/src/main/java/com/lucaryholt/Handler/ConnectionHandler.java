@@ -102,8 +102,6 @@ class Receiver implements Runnable {
 
             String recv = new String(receivePacket.getData(), 0, receivePacket.getLength());
 
-            System.out.println(recv);
-
             JSONObject jsonObject = (JSONObject) parser.parse(recv);
 
             Packet recvPacket = generatePacket(jsonObject);

@@ -27,7 +27,7 @@ public class GUI extends JFrame implements UI {
 
         mS = new MessageService(this);
 
-        new ConnectionWindow(mS).setupComponents();
+        connection();
 
         setSize(400,400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,6 +49,10 @@ public class GUI extends JFrame implements UI {
         }
 
         setVisible(true);
+    }
+
+    private void connection(){
+        new ConnectionWindow(mS).setupComponents();
     }
 
     private void setupComponents(){

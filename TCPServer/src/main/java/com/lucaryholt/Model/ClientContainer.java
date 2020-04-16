@@ -13,6 +13,10 @@ public class ClientContainer {
     public ClientContainer() {
     }
 
+    public ClientContainer(Long id) {
+        this.id = id;
+    }
+
     public ClientContainer(String name, Long id, InetAddress ip, int port) {
         this.name = name;
         this.id = id;
@@ -54,11 +58,11 @@ public class ClientContainer {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
         ClientContainer that = (ClientContainer) o;
-        return port == that.port &&
-                Objects.equals(ip, that.ip);
+        if(id == null || that.id == null){
+            return false;
+        }
+        return id.equals(that.id);
     }
 
     @Override

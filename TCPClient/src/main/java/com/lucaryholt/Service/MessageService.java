@@ -52,6 +52,7 @@ public class MessageService {
             newChat("server", "Connected!");
             return true;
         }
+        //TODO logic to type in connection information again and tell user to try new username
         newChat("server", "Not connected... Try again...");
         return false;
     }

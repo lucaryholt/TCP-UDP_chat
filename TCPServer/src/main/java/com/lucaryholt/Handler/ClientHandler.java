@@ -15,15 +15,15 @@ import java.util.Scanner;
 
 public class ClientHandler {
 
+    //TODO refactoring
+    //Split up in ClientHandler and ConnectionHandler
+    //Maybe MessageService as Client
+
     private List<ClientContainer> clientContainers = new ArrayList<>(); //Lav om til map
     private DatagramSocket datagramSocket;
     private JSONParser jsonParser = new JSONParser();
 
     private Long clientId = 1L;
-
-    public ClientHandler() {
-
-    }
 
     public void start(){
         Scanner sc = new Scanner(System.in);
@@ -84,13 +84,15 @@ public class ClientHandler {
     }
 
     private void packetDecision(Packet recvPacket, DatagramPacket packet){
-        switch(recvPacket.getType()){
-            case INIT:  initiationProtocol(recvPacket, packet);
-                        break;
-            case MSG:   sendMessages(PacketType.MSG, recvPacket.getMsg(), recvPacket.getName());
-                        break;
-            case QUIT:  removeFromClientContainers(recvPacket, packet);
-                        break;
+        if(clientContainers.contains(new ClientContainer(recvPacket.getId())) || recvPacket.getType() == PacketType.INIT){
+            switch(recvPacket.getType()){
+                case INIT:  initiationProtocol(recvPacket, packet);
+                            break;
+                case MSG:   sendMessages(PacketType.MSG, recvPacket.getMsg(), recvPacket.getName());
+                            break;
+                case QUIT:  removeFromClientContainers(recvPacket, packet);
+                            break;
+            }
         }
     }
 
@@ -169,8 +171,6 @@ public class ClientHandler {
     private void sendMessage(JSONObject jsonObject, ClientContainer cC){
         try {
             jsonObject.put("id", cC.getId());
-
-            System.out.println("debug: " + jsonObject.toJSONString());
 
             byte[] sendArr = jsonObject.toJSONString().getBytes();
             DatagramPacket sendPacket = new DatagramPacket(sendArr, sendArr.length, cC.getIp(), cC.getPort());
