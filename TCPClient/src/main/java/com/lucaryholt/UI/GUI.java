@@ -3,8 +3,6 @@ package com.lucaryholt.UI;
 import com.lucaryholt.Service.MessageService;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,7 +50,7 @@ public class GUI extends JFrame implements UI {
     }
 
     private void connection(){
-        new ConnectionWindow(mS).setupComponents();
+        new ConnectionWindow(mS);
     }
 
     private void setupComponents(){
@@ -144,6 +142,7 @@ class ConnectionWindow extends JFrame{
     private JTextField nameField;
     private JTextField ipField;
     private JTextField portField;
+
     private JButton jButton;
 
     private MessageService mS;
@@ -153,13 +152,15 @@ class ConnectionWindow extends JFrame{
 
         this.mS = mS;
 
-        setSize(400,400);
+        setSize(300,200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
-        setLayout(new FlowLayout());
+        setLayout(new BorderLayout());
+
+        setupComponents();
 
         setVisible(true);
     }
@@ -180,9 +181,13 @@ class ConnectionWindow extends JFrame{
         portPanel.add(new JLabel("Port:"));
         portPanel.add(portField);
 
-        add(namePanel);
-        add(ipPanel);
-        add(portPanel);
+        JPanel inputPanel = new JPanel();
+
+        inputPanel.add(namePanel);
+        inputPanel.add(ipPanel);
+        inputPanel.add(portPanel);
+
+        add(inputPanel, BorderLayout.CENTER);
 
         setupButton();
     }
@@ -206,7 +211,7 @@ class ConnectionWindow extends JFrame{
                 setVisible(false);
             }
         });
-        add(jButton);
+        add(jButton, BorderLayout.SOUTH);
 
         getRootPane().setDefaultButton(jButton);
     }

@@ -31,7 +31,7 @@ public class MessageService {
             this.port = port;
             this.name = name;
 
-            cH.initiateConnection();
+            cH.initiateConnection(ip.getHostName(), port);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,8 +39,6 @@ public class MessageService {
 
     public boolean initiationProtocol(){
         cH.initiationProtocol(name, PacketType.INIT, ip, port);
-
-        //TODO make protocol where it waits for reply from server with ID and if username already exists
 
         return true;
     }
@@ -59,8 +57,7 @@ public class MessageService {
 
     public void packetDecision(Packet recvPacket){
         switch (recvPacket.getType()){
-            case INIT:  System.out.println("init packet...");
-                        init(recvPacket);
+            case INIT:  init(recvPacket);
                         break;
             case MSG:   updateNames(recvPacket.getNames());
                         newChat(recvPacket.getName(), recvPacket.getMsg());
@@ -75,7 +72,7 @@ public class MessageService {
     }
 
     public void sendMessage(String message){
-        if(message.equals("quit")){
+        if(message.equals("!quit")){
             quitMessage();
         } else {
             sendPacket(PacketType.MSG, message, name);

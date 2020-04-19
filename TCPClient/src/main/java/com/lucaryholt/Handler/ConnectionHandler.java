@@ -3,11 +3,11 @@ package com.lucaryholt.Handler;
 import com.lucaryholt.Enum.PacketType;
 import com.lucaryholt.Model.Packet;
 import com.lucaryholt.Service.MessageService;
+import com.lucaryholt.Tool.ProjectVar;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 
@@ -15,20 +15,22 @@ public class ConnectionHandler {
 
     private MessageService mS;
 
-    private DatagramSocket datagramSocket;
+    private Connection connection;
 
     public ConnectionHandler(MessageService mS) {
         this.mS = mS;
+
+        if(ProjectVar.connection.equals("tcp")){
+            connection = new TCPConnection();
+        }else{
+            connection = new UDPConnection();
+        }
     }
 
-    public void initiateConnection(){
-        try {
-            datagramSocket = new DatagramSocket();
+    public void initiateConnection(String ip, int port){
+        connection.initiateConnection(ip, port);
 
-            startThread();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        startThread();
     }
 
     public void initiationProtocol(String name, PacketType type, InetAddress ip, int port){
@@ -36,7 +38,7 @@ public class ConnectionHandler {
     }
 
     private void startThread(){
-        Receiver receiver = new Receiver(datagramSocket, mS);
+        Receiver receiver = new Receiver(mS, connection);
         Thread thread = new Thread(receiver);
         thread.start();
     }
@@ -47,22 +49,15 @@ public class ConnectionHandler {
     }
 
     public void sendPacket(PacketType type, Long id, String message, String name, InetAddress ip, int port){
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("type", type.toString());
-            jsonObject.put("id", id);
-            jsonObject.put("msg", message);
-            jsonObject.put("name", name);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("type", type.toString());
+        jsonObject.put("id", id);
+        jsonObject.put("msg", message);
+        jsonObject.put("name", name);
 
-            String data = jsonObject.toJSONString();
+        String data = jsonObject.toJSONString();
 
-            byte[] sendArr = data.getBytes();
-
-            DatagramPacket sendPacket = new DatagramPacket(sendArr, sendArr.length, ip, port);
-            datagramSocket.send(sendPacket);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        connection.send(data, ip, port);
     }
 
 }
@@ -71,11 +66,11 @@ class Receiver implements Runnable {
 
     private MessageService mS;
 
-    private DatagramSocket datagramSocket;
+    private Connection connection;
 
-    public Receiver(DatagramSocket datagramSocket, MessageService mS) {
-        this.datagramSocket = datagramSocket;
+    public Receiver(MessageService mS, Connection connection) {
         this.mS = mS;
+        this.connection = connection;
     }
 
     private PacketType getType(String type){
@@ -94,13 +89,7 @@ class Receiver implements Runnable {
         try {
             JSONParser parser = new JSONParser();
 
-            byte[] receiveArr = new byte[1000];
-
-            DatagramPacket receivePacket = new DatagramPacket(receiveArr, receiveArr.length);
-
-            datagramSocket.receive(receivePacket);
-
-            String recv = new String(receivePacket.getData(), 0, receivePacket.getLength());
+            String recv = connection.receive();
 
             JSONObject jsonObject = (JSONObject) parser.parse(recv);
 
@@ -109,7 +98,7 @@ class Receiver implements Runnable {
             mS.packetDecision(recvPacket);
 
             return recvPacket;
-        } catch (IOException | ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return null;

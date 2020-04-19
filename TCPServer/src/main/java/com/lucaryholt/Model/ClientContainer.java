@@ -1,14 +1,15 @@
 package com.lucaryholt.Model;
 
-import java.net.InetAddress;
+import java.io.PrintWriter;
 import java.util.Objects;
 
 public class ClientContainer {
 
     private String name;
     private Long id;
-    private InetAddress ip;
+    private String ip;
     private int port;
+    private PrintWriter pw;
 
     public ClientContainer() {
     }
@@ -17,18 +18,31 @@ public class ClientContainer {
         this.id = id;
     }
 
-    public ClientContainer(String name, Long id, InetAddress ip, int port) {
+    public ClientContainer(String name, Long id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public ClientContainer(String name, Long id, String ip, int port) {
         this.name = name;
         this.id = id;
         this.ip = ip;
         this.port = port;
     }
 
-    public InetAddress getIp() {
+    public ClientContainer(String name, Long id, String ip, int port, PrintWriter pw) {
+        this.name = name;
+        this.id = id;
+        this.ip = ip;
+        this.port = port;
+        this.pw = pw;
+    }
+
+    public String getIp() {
         return ip;
     }
 
-    public void setIp(InetAddress ip) {
+    public void setIp(String ip) {
         this.ip = ip;
     }
 
@@ -54,6 +68,14 @@ public class ClientContainer {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public PrintWriter getPw() {
+        return pw;
+    }
+
+    public void setPw(PrintWriter pw) {
+        this.pw = pw;
     }
 
     @Override

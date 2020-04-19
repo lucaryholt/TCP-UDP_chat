@@ -78,7 +78,6 @@ public class Console implements UI {
         for(String s: names){
             sb.append(s).append(" | ");
         }
-        sb.append(".");
         System.out.println(sb.toString());
     }
 
