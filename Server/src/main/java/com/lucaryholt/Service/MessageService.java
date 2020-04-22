@@ -81,8 +81,7 @@ public class MessageService {
     }
 
     public void removeFromClientContainers(Long id){
-        String name = cliHan.removeFromClientContainers(id);
-        conHan.sendMessages(PacketType.MSG, (name + " has lost connection to the chat."), "server", cliHan.generateNameList(), cliHan.getClientContainers());
+        cliHan.removeFromClientContainers(id);
     }
 
 }

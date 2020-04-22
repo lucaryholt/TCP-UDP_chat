@@ -118,10 +118,9 @@ public class GUI extends JFrame implements UI {
     }
 
     public void newChat(String name, String text){
-        if(show){
-            String newLine = name + ": " + text + "\n";
-            jTextArea.append(newLine);
-        }else{
+        String newLine = name + ": " + text + "\n";
+        jTextArea.append(newLine);
+        if(!show){
             TrayIconHandler.displayNotification("New Message!", name + ": " + text, TrayIcon.MessageType.INFO);
         }
     }
