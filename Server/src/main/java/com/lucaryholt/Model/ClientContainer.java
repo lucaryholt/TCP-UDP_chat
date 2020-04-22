@@ -80,9 +80,15 @@ public class ClientContainer {
 
     @Override
     public boolean equals(Object o) {
+        if(this.getClass() != o.getClass()){
+            return false;
+        }
         ClientContainer that = (ClientContainer) o;
         if(id == null || that.id == null){
             return false;
+        }
+        if(name.equals(that.getName())){
+            return true;
         }
         return id.equals(that.id);
     }

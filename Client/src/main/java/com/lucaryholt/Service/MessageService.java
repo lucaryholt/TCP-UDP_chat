@@ -48,6 +48,7 @@ public class MessageService {
             this.id = initPacket.getId();
             updateNames(initPacket.getNames());
             newChat("server", "Connected!");
+            cH.sendPacket(PacketType.UPDATE, id, "", name, ip, port);
             return true;
         }
         //TODO logic to type in connection information again and tell user to try new username

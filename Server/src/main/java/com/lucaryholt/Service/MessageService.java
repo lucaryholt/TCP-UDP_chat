@@ -28,14 +28,16 @@ public class MessageService {
     }
 
     public void packetDecision(Packet recvPacket){
-        if(cliHan.getClientContainers().contains(new ClientContainer(recvPacket.getId())) || recvPacket.getType() == PacketType.INIT){
+        if(cliHan.getClientContainers().contains(new ClientContainer(recvPacket.getName(), recvPacket.getId())) || recvPacket.getType() == PacketType.INIT){
             switch(recvPacket.getType()){
-                case INIT:  initiationProtocol(recvPacket);
-                            break;
-                case MSG:   conHan.sendMessages(PacketType.MSG, recvPacket.getMsg(), recvPacket.getName(), cliHan.generateNameList(), cliHan.getClientContainers());
-                            break;
-                case QUIT:  removeFromClientContainers(recvPacket);
-                            break;
+                case INIT:      initiationProtocol(recvPacket);
+                                break;
+                case MSG:       conHan.sendMessages(PacketType.MSG, recvPacket.getMsg(), recvPacket.getName(), cliHan.generateNameList(), cliHan.getClientContainers());
+                                break;
+                case QUIT:      removeFromClientContainers(recvPacket);
+                                break;
+                case UPDATE:    System.out.println("received update packet from " + recvPacket.getName() + "...");
+                                break;
             }
         }
     }
@@ -76,6 +78,11 @@ public class MessageService {
     private void removeFromClientContainers(Packet packet){
         cliHan.removeFromClientContainers(packet);
         conHan.sendMessages(PacketType.MSG, (packet.getName() + " has left the chat."), "server", cliHan.generateNameList(), cliHan.getClientContainers());
+    }
+
+    public void removeFromClientContainers(Long id){
+        String name = cliHan.removeFromClientContainers(id);
+        conHan.sendMessages(PacketType.MSG, (name + " has lost connection to the chat."), "server", cliHan.generateNameList(), cliHan.getClientContainers());
     }
 
 }

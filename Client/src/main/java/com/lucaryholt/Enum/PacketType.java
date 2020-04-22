@@ -4,6 +4,7 @@ public enum PacketType {
 
     INIT,
     MSG,
-    QUIT
+    QUIT,
+    UPDATE
 
 }

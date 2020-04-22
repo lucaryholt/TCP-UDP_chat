@@ -1,6 +1,7 @@
 package com.lucaryholt.Handler.ConnectionHandler;
 
 import com.lucaryholt.Enum.PacketType;
+import com.lucaryholt.Handler.ClientHandler;
 import com.lucaryholt.Model.ClientContainer;
 import com.lucaryholt.Model.Packet;
 import com.lucaryholt.Service.MessageService;
@@ -16,6 +17,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
+import java.util.Set;
 
 public class TCPConnectionHandler implements ConnectionHandler {
 
@@ -31,7 +33,7 @@ public class TCPConnectionHandler implements ConnectionHandler {
     }
 
     @Override
-    public void sendMessages(PacketType type, String message, String name, List<String> names, List<ClientContainer> clientContainers) {
+    public void sendMessages(PacketType type, String message, String name, List<String> names, Set<ClientContainer> clientContainers) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("type", type.toString());
         jsonObject.put("msg", message);
@@ -40,6 +42,7 @@ public class TCPConnectionHandler implements ConnectionHandler {
 
         System.out.println("msg: " + message + ", from: " + name);
         for(ClientContainer cC : clientContainers){
+            jsonObject.put("id", cC.getId());
             sendMessage(jsonObject, cC);
             System.out.println("sending to: " + cC.getId());
         }
@@ -47,7 +50,11 @@ public class TCPConnectionHandler implements ConnectionHandler {
 
     @Override
     public void sendMessage(JSONObject jsonObject, ClientContainer cC) {
-        cC.getPw().println(jsonObject.toJSONString());
+        if(cC.getPw() != null){
+            cC.getPw().println(jsonObject.toJSONString());
+        }else{
+            System.out.println("could not send");
+        }
     }
 
     public void receivePacket(JSONObject jsonObject, PrintWriter printWriter){
@@ -72,8 +79,14 @@ public class TCPConnectionHandler implements ConnectionHandler {
                 return PacketType.MSG;
             case "QUIT":
                 return PacketType.QUIT;
+            case "UPDATE":
+                return PacketType.UPDATE;
         }
         return null;
+    }
+
+    public void clientDisconnect(Long id){
+        mS.removeFromClientContainers(id);
     }
 }
 
@@ -109,6 +122,7 @@ class TCPClientConnection implements Runnable{
     private BufferedReader bufferedReader;
     private PrintWriter printWriter;
     private TCPConnectionHandler conHan;
+    private Long id;
     private boolean quit = false;
 
     public TCPClientConnection(Socket socket, TCPConnectionHandler conHan){
@@ -127,13 +141,18 @@ class TCPClientConnection implements Runnable{
 
             String recv = bufferedReader.readLine();
 
-            return (JSONObject) parser.parse(recv);
+            JSONObject jsonObject = (JSONObject) parser.parse(recv);
+
+            id = (Long) jsonObject.get("id");
+
+            return jsonObject;
         } catch (SocketException e){
             System.out.println("lost connection to client...");
             try {
                 bufferedReader.close();
                 printWriter.close();
                 quit = true;
+                conHan.clientDisconnect(id);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

@@ -12,6 +12,7 @@ import org.json.simple.parser.ParseException;
 
 import java.net.DatagramPacket;
 import java.util.List;
+import java.util.Set;
 
 public class UDPConnectionHandler implements ConnectionHandler {
 
@@ -78,7 +79,7 @@ public class UDPConnectionHandler implements ConnectionHandler {
         return null;
     }
 
-    public void sendMessages(PacketType type, String message, String name, List<String> names, List<ClientContainer> clientContainers){
+    public void sendMessages(PacketType type, String message, String name, List<String> names, Set<ClientContainer> clientContainers){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("type", type.toString());
         jsonObject.put("msg", message);

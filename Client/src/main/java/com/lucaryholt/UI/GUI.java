@@ -15,6 +15,7 @@ public class GUI extends JFrame implements UI {
     private JTextArea jTextArea;
     private JButton jButton;
     private JList<String> jList;
+    private boolean show = true;
 
     private MessageService mS;
 
@@ -45,6 +46,8 @@ public class GUI extends JFrame implements UI {
                 e.printStackTrace();
             }
         }
+
+        new TrayIconHandler(this).instantiateSystemTray();
 
         setVisible(true);
     }
@@ -115,8 +118,12 @@ public class GUI extends JFrame implements UI {
     }
 
     public void newChat(String name, String text){
-        String newLine = name + ": " + text + "\n";
-        jTextArea.append(newLine);
+        if(show){
+            String newLine = name + ": " + text + "\n";
+            jTextArea.append(newLine);
+        }else{
+            TrayIconHandler.displayNotification("New Message!", name + ": " + text, TrayIcon.MessageType.INFO);
+        }
     }
 
     @Override
@@ -133,6 +140,11 @@ public class GUI extends JFrame implements UI {
                 return names.get(i);
             }
         });
+    }
+
+    public void hideShow(){
+        show = !show;
+        setVisible(show);
     }
 
 }
@@ -214,6 +226,68 @@ class ConnectionWindow extends JFrame{
         add(jButton, BorderLayout.SOUTH);
 
         getRootPane().setDefaultButton(jButton);
+    }
+
+}
+
+class TrayIconHandler{
+
+    private GUI gui;
+    private static TrayIcon trayIcon = null;
+
+    public TrayIconHandler(GUI gui) {
+        this.gui = gui;
+    }
+
+    public void instantiateSystemTray(){
+        try{
+            if(SystemTray.isSupported()){
+                SystemTray tray = SystemTray.getSystemTray();
+                Image image = new ImageIcon("icon0.png").getImage(); //need to add imagefile
+
+                ActionListener hideShowListener = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        gui.hideShow();
+                    }
+                };
+
+                ActionListener quitListener = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        System.exit(1);
+                    }
+                };
+
+                PopupMenu popup = new PopupMenu();
+
+                MenuItem hideShowItem = new MenuItem("Hide/Show");
+                hideShowItem.addActionListener(hideShowListener);
+                MenuItem quitItem = new MenuItem("Quit");
+                quitItem.addActionListener(quitListener);
+
+                popup.add(hideShowItem);
+                popup.add(quitItem);
+
+                trayIcon = new TrayIcon(image, "Chat", popup);
+
+                trayIcon.addActionListener(hideShowListener);
+
+                try {
+                    tray.add(trayIcon);
+                } catch (AWTException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                System.out.println("System tray not available. Running program without.");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void displayNotification(String title, String notif, TrayIcon.MessageType type){
+        trayIcon.displayMessage(title, notif, type);
     }
 
 }
