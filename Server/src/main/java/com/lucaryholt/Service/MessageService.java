@@ -28,7 +28,7 @@ public class MessageService {
     }
 
     public void packetDecision(Packet recvPacket){
-        if(cliHan.getClientContainers().contains(new ClientContainer(recvPacket.getName(), recvPacket.getId())) || recvPacket.getType() == PacketType.INIT){
+        if(cliHan.alreadyInList(new ClientContainer(recvPacket.getName(), recvPacket.getId())) || recvPacket.getType() == PacketType.INIT){
             switch(recvPacket.getType()){
                 case INIT:      initiationProtocol(recvPacket);
                                 break;

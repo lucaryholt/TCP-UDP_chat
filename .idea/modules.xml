@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Client/TCPClient.iml" filepath="$PROJECT_DIR$/Client/TCPClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Server/TCPServer.iml" filepath="$PROJECT_DIR$/Server/TCPServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/chatSystem.iml" filepath="$PROJECT_DIR$/.idea/chatSystem.iml" />
+    </modules>
+  </component>
+</project>

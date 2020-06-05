@@ -76,7 +76,7 @@ public class UDPConnectionHandler implements ConnectionHandler {
             case "QUIT":
                 return PacketType.QUIT;
         }
-        return null;
+        return PacketType.UDEF;
     }
 
     public void sendMessages(PacketType type, String message, String name, List<String> names, Set<ClientContainer> clientContainers){

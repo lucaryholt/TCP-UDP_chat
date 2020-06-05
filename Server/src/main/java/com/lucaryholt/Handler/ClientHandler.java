@@ -28,7 +28,12 @@ public class ClientHandler {
     }
 
     public boolean alreadyInList(ClientContainer clientContainer){
-        return clientContainers.contains(clientContainer);
+        for(ClientContainer cC : clientContainers){
+            if(cC.getId().equals(clientContainer.getId()) && cC.getName().equals(clientContainer.getName())){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void removeFromClientContainers(Packet packet){
